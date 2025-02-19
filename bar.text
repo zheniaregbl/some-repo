@@ -1,0 +1,99 @@
+@Composable
+fun BottomNavBar(
+    modifier: Modifier = Modifier
+) {
+
+    Box(modifier = modifier) {
+
+        Image(
+            modifier = modifier,
+            imageVector = ImageVector.vectorResource(R.drawable.bar_back_svg),
+            contentDescription = null,
+            contentScale = ContentScale.FillWidth
+        )
+
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 14.dp),
+            contentAlignment = Alignment.Center
+        ) {
+
+            Box(
+                modifier = Modifier
+                    .clip(CircleShape)
+                    .background(Color(0xFF48B2E7))
+                    .padding(16.dp),
+                contentAlignment = Alignment.Center
+            ) {
+
+                Image(
+                    imageVector = ImageVector.vectorResource(R.drawable.home_svg),
+                    contentDescription = null,
+                    colorFilter = ColorFilter.tint(Color.White)
+                )
+            }
+        }
+
+        Box(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
+                .padding(horizontal = 30.dp)
+                .padding(bottom = 30.dp)
+        ) {
+
+            Row(
+                modifier = Modifier.align(Alignment.BottomStart),
+                horizontalArrangement = Arrangement.spacedBy(40.dp)
+            ) {
+
+                Image(
+                    modifier = Modifier.clickable {  },
+                    imageVector = ImageVector.vectorResource(R.drawable.home_svg),
+                    contentDescription = null
+                )
+
+                Image(
+                    modifier = Modifier.clickable {  },
+                    imageVector = ImageVector.vectorResource(R.drawable.home_svg),
+                    contentDescription = null
+                )
+            }
+
+            Row(
+                modifier = Modifier.align(Alignment.BottomEnd),
+                horizontalArrangement = Arrangement.spacedBy(40.dp)
+            ) {
+
+                Image(
+                    modifier = Modifier.clickable {  },
+                    imageVector = ImageVector.vectorResource(R.drawable.home_svg),
+                    contentDescription = null
+                )
+
+                Image(
+                    modifier = Modifier.clickable {  },
+                    imageVector = ImageVector.vectorResource(R.drawable.home_svg),
+                    contentDescription = null
+                )
+            }
+        }
+    }
+}
+
+
+
+// ИСПОЛЬЗОВАНИЕ
+
+@Composable
+fun HomeScreen(modifier: Modifier = Modifier) {
+
+    Box(modifier = modifier) {
+        BottomNavBar(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
+        )
+    }
+}
