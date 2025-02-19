@@ -1,0 +1,135 @@
+com.example.matuleme.presentation.view 
+OnboardingScreen.kt
+package com.example.matuleme.presentation.view
+
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
+import com.example.matuleme.R
+import com.google.accompanist.pager.*
+import kotlinx.coroutines.launch
+
+@OptIn(ExperimentalPagerApi::class)
+@Composable
+fun OnboardingScreen(navController: NavController) {
+    val pagerState = rememberPagerState()
+    val coroutineScope = rememberCoroutineScope()
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(Color(0xFF48B2E7), Color(0xFF0076B1))
+                )
+            )
+    ) {
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Spacer(modifier = Modifier.height(40.dp))
+
+            // Слайдер с экранами
+            HorizontalPager(
+                count = 3,
+                state = pagerState,
+                modifier = Modifier.weight(1f)
+            ) { page ->
+                when (page) {
+                    0 -> OnboardingPage(imageRes = R.drawable.group_1, showButton = true, buttonText = "Начать") {
+                        coroutineScope.launch { pagerState.animateScrollToPage(1) }
+                    }
+                    1 -> OnboardingPage(imageRes = R.drawable.group_2, showButton = true, buttonText = "Далее") {
+                        coroutineScope.launch { pagerState.animateScrollToPage(2) }
+                    }
+                    2 -> OnboardingPage(imageRes = R.drawable.group_3, showButton = true, buttonText = "Далее") {
+                        navController.navigate("home")
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+@Composable
+fun OnboardingPage(imageRes: Int, showButton: Boolean, buttonText: String, onClick: () -> Unit) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Image(
+            painter = painterResource(id = imageRes),
+            contentDescription = "Onboarding Image",
+            modifier = Modifier.fillMaxWidth(),
+            contentScale = ContentScale.Fit
+        )
+
+        Spacer(modifier = Modifier.weight(1f))
+
+        if (showButton) {
+            Button(
+                onClick = onClick,
+                shape = RoundedCornerShape(12.dp),
+                colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+                modifier = Modifier
+                    .fillMaxWidth(0.85f)
+                    .padding(bottom = 40.dp)
+                    .height(50.dp)
+            ) {
+                Text(
+                    text = buttonText,
+                    fontFamily = FontFamily(Font(R.font.roboto)),
+                    fontSize = 14.sp,
+                    color = Color.Black
+                )
+            }
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun OnboardingPreview() {
+    OnboardingScreen(rememberNavController())
+}
+
+
+themes.themes.xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.MatuleMe" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowSplashScreenBackground">@color/black</item>
+    </style>
+</resources>
+
+themes.themes.xml
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.MatuleMe" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowSplashScreenBackground">@color/bb</item>
+    </style>
+</resources>
+
+
+
