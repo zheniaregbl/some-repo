@@ -1,0 +1,3 @@
+<style name="Theme.НАЗВАНИЕ_ПРИЛОЖЕНИЯ" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowSplashScreenBackground">@color/свой_цвет</item>
+</style>
